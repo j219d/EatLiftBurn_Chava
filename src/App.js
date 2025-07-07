@@ -27,11 +27,11 @@ function App() {
   const [protein, setProtein] = useState(() => parseInt(localStorage.getItem("protein")) || 0);
   const [steps, setSteps] = useState(() => parseInt(localStorage.getItem("steps")) || 0);
   // ▶ default deficit goal to saved override or personal threshold
-  const [deficitGoal, setDeficitGoal] = useState(() => {
-    const saved = parseInt(localStorage.getItem("deficitGoal"), 10);
-    if (!isNaN(saved)) return saved;
-    return calorieThreshold;
-  });
+const [deficitGoal, setDeficitGoal] = useState(() => {
+  const saved = parseInt(localStorage.getItem("deficitGoal"), 10);
+  return !isNaN(saved) ? saved : 500;  // ✅ fallback to 500 instead of calorieThreshold
+});
+
   const [proteinGoal, setProteinGoal] = useState(() => parseFloat(localStorage.getItem("proteinGoal")) || 140);
 const [fat, setFat] = useState(() => parseFloat(localStorage.getItem("fat")) || 0);
 const [carbs, setCarbs] = useState(() => parseFloat(localStorage.getItem("carbs")) || 0);
