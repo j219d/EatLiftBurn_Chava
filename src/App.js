@@ -18,9 +18,9 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 
 // ▶ personal constants for BMR calculation
-const heightCm = 170;
-const birthDate = new Date(1990, 8, 21);  // Sep 21, 1990
-const isMale = true;
+const heightCm = 163;
+const birthDate = new Date(1998, 9, 13);  // Oct 13, 1998
+const isMale = false;
 function App() {
   const [screen, setScreen] = useState("home");
   const [calories, setCalories] = useState(() => parseInt(localStorage.getItem("calories")) || 0);
