@@ -54,8 +54,7 @@ const waterGoal = 3; // bottles of 27oz (~2.5L)
   const [checklist, setChecklist] = useState(() => JSON.parse(localStorage.getItem("checklist")) || {
   supplements: false,
   sunlight: false,
-  concentrace: false,
-  teffilin: false
+  concentrace: false
 });
 const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   const [foodLog, setFoodLog] = useState(() => JSON.parse(localStorage.getItem("foodLog")) || []);
@@ -291,7 +290,7 @@ useEffect(() => {
   setSteps(0);
   setFoodLog([]);
   setWorkoutLog({});
-  setChecklist({ supplements: false, sunlight: false, concentrace: false, teffilin: false});
+  setChecklist({ supplements: false, sunlight: false, concentrace: false});
 
   // Optional: clear localStorage for those too
   localStorage.removeItem("calories");
@@ -1534,7 +1533,7 @@ marginBottom:    "20px"
 </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-  {["concentrace", "teffilin", "sunlight", "supplements"].map((key) => (
+  {["concentrace", "sunlight", "supplements"].map((key) => (
     <label key={key} style={{ fontSize: "16px" }}>
       <input
         type="checkbox"
@@ -1546,8 +1545,6 @@ marginBottom:    "20px"
       />
       {key === "concentrace"
         ? "Concentrace 💧"
-        : key === "teffilin"
-        ? "Tefillin ✡️"
         : key === "sunlight"
         ? "Sunlight 🌞"
         : key === "supplements"
