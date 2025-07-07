@@ -259,19 +259,19 @@ useEffect(() => {
   // 🛠️ Whenever mode changes, override the home-page goals
   useEffect(() => {
     if (mode === "Cut") {
-      setProteinGoal(140);
+      setProteinGoal(113);
       setFatGoal(50);
-      setCarbGoal(120);
+      setCarbGoal(100);
       setDeficitGoal(500);
     } else if (mode === "Maintenance") {
-      setProteinGoal(140);
-      setFatGoal(55);
-      setCarbGoal(160);
+      setProteinGoal(100);
+      setFatGoal(56);
+      setCarbGoal(115);
       setDeficitGoal(0);
     } else { // Bulk
       setProteinGoal(150);
-      setFatGoal(60);
-      setCarbGoal(200);
+      setFatGoal(63);
+      setCarbGoal(175);
       setDeficitGoal(-100);
     }
   }, [mode]);
