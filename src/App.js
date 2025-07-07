@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -12,31 +16,12 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
+
 // ▶ personal constants for BMR calculation
-const heightCm  = 163;
-const birthDate = new Date(1998, 9, 13);  // Oct 13, 1998
-const isMale    = false;
-
+const heightCm = 170;
+const birthDate = new Date(1990, 8, 21);  // Sep 21, 1990
+const isMale = true;
 function App() {
-  // ─── Compute BMR & calorieThreshold *before* any useState ───
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m   = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
-
-  // first-render fallback weight
-  const fallbackWeight = isMale ? 150 : 125;
-  const latestWeight   = fallbackWeight;
-
-  const bmr = Math.round(
-    10 * (latestWeight / 2.20462) +
-    6.25 * heightCm -
-    5  * age +
-    (isMale ? 5 : -161)
-  );
-  const calorieThreshold = bmr || 1600;
-  // ──────────────────────────────────────────────────────────────
-
   const [screen, setScreen] = useState("home");
   const [calories, setCalories] = useState(() => parseInt(localStorage.getItem("calories")) || 0);
   const [protein, setProtein] = useState(() => parseInt(localStorage.getItem("protein")) || 0);
@@ -135,8 +120,15 @@ const foodOptions = [
   { name: "Brazil nut", cal: 33, prot: 0.75, fat: 3.4, carbs: 0.6, fiber: 0.2 },
   { name: "Bread (sourdough rye slice 56g)", cal: 145, prot: 4.5, fat: 1.0, carbs: 27, fiber: 3.3 },
   { name: "Butter (1 tsp)", cal: 35, prot: 0, fat: 4, carbs: 0, fiber: 0 },
-  { name: "Carrot", cal: 25, prot: 0.5, fat: 0.1, carbs: 6, fiber: 1.7 },
+  { name: "Carrot (50g)", cal: 21, prot: 0.5, fat: 0.1, carbs: 5, fiber: 1.4 },
+  { name: "Carrot (100g)", cal: 41, prot: 0.9, fat: 0.2, carbs: 10, fiber: 2.8 },
+  { name: "Carrot (150g)", cal: 62, prot: 1.4, fat: 0.3, carbs: 15, fiber: 4.2 },
   { name: "Carrots Peas and Corn (frozen, 100g)", cal: 63, prot: 3, fat: 1.1, carbs: 10, fiber: 4 },
+  { name: "Cheese (Parmesan 10g)", cal: 43, prot: 3.8, fat: 2.9, carbs: 0.4, fiber: 0 },
+  { name: "Cheese (Parmesan 20g)", cal: 86, prot: 7.6, fat: 5.8, carbs: 0.8, fiber: 0 },
+  { name: "Cheese (Parmesan 25g)", cal: 108, prot: 9.5, fat: 7.3, carbs: 1, fiber: 0 },
+  { name: "Cheese (Parmesan 30g)", cal: 129, prot: 11.4, fat: 8.7, carbs: 1.2, fiber: 0 },
+  { name: "Cheese (Parmesan 50g)", cal: 216, prot: 19, fat: 14.5, carbs: 2, fiber: 0 },
   { name: "Chia pudding (2 tbsp chia + 3/4 cup almond milk)", cal: 206, prot: 5, fat: 9, carbs: 12, fiber: 10 },
   { name: "Chia seeds (1 tbsp)", cal: 58, prot: 2, fat: 3.7, carbs: 5.1, fiber: 4.1 },
   { name: "Chicken breast (50g)", cal: 82, prot: 15, fat: 1.8, carbs: 0, fiber: 0 },
@@ -291,6 +283,7 @@ useEffect(() => {
 
   setCalories(0);
   setProtein(0);
+  (0);
   setFat(0);
   setCarbs(0);
   setFiber(0);
