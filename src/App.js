@@ -12,12 +12,31 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-
 // ▶ personal constants for BMR calculation
-const heightCm = 163;
+const heightCm  = 163;
 const birthDate = new Date(1998, 9, 13);  // Oct 13, 1998
-const isMale = false;
+const isMale    = false;
+
 function App() {
+  // ─── Compute BMR & calorieThreshold *before* any useState ───
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m   = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+
+  // first-render fallback weight
+  const fallbackWeight = isMale ? 150 : 125;
+  const latestWeight   = fallbackWeight;
+
+  const bmr = Math.round(
+    10 * (latestWeight / 2.20462) +
+    6.25 * heightCm -
+    5  * age +
+    (isMale ? 5 : -161)
+  );
+  const calorieThreshold = bmr || 1600;
+  // ──────────────────────────────────────────────────────────────
+
   const [screen, setScreen] = useState("home");
   const [calories, setCalories] = useState(() => parseInt(localStorage.getItem("calories")) || 0);
   const [protein, setProtein] = useState(() => parseInt(localStorage.getItem("protein")) || 0);
@@ -249,19 +268,19 @@ useEffect(() => {
   // 🛠️ Whenever mode changes, override the home-page goals
   useEffect(() => {
     if (mode === "Cut") {
-      setProteinGoal(110);
+      setProteinGoal(140);
       setFatGoal(50);
-      setCarbGoal(100);
+      setCarbGoal(120);
       setDeficitGoal(500);
     } else if (mode === "Maintenance") {
       setProteinGoal(140);
       setFatGoal(55);
-      setCarbGoal(130);
+      setCarbGoal(160);
       setDeficitGoal(0);
     } else { // Bulk
       setProteinGoal(150);
       setFatGoal(60);
-      setCarbGoal(165);
+      setCarbGoal(200);
       setDeficitGoal(-100);
     }
   }, [mode]);
@@ -272,7 +291,6 @@ useEffect(() => {
 
   setCalories(0);
   setProtein(0);
-  (0);
   setFat(0);
   setCarbs(0);
   setFiber(0);
