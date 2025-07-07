@@ -18,9 +18,9 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 
 // ▶ personal constants for BMR calculation
-const heightCm = 170;
-const birthDate = new Date(1990, 8, 21);  // Sep 21, 1990
-const isMale = true;
+const heightCm = 163;
+const birthDate = new Date(1998, 9, 13);  // Oct 13, 1998
+const isMale = false;
 function App() {
   const [screen, setScreen] = useState("home");
   const [calories, setCalories] = useState(() => parseInt(localStorage.getItem("calories")) || 0);
@@ -32,7 +32,7 @@ function App() {
     if (!isNaN(saved)) return saved;
     return calorieThreshold;
   });
-  const [proteinGoal, setProteinGoal] = useState(() => parseFloat(localStorage.getItem("proteinGoal")) || 140);
+  const [proteinGoal, setProteinGoal] = useState(() => parseFloat(localStorage.getItem("proteinGoal")) || 120);
 const [fat, setFat] = useState(() => parseFloat(localStorage.getItem("fat")) || 0);
 const [carbs, setCarbs] = useState(() => parseFloat(localStorage.getItem("carbs")) || 0);
 const [fiber, setFiber] = useState(() => parseFloat(localStorage.getItem("fiber")) || 0);
@@ -55,7 +55,6 @@ const waterGoal = 3; // bottles of 27oz (~2.5L)
   supplements: false,
   sunlight: false,
   concentrace: false,
-  teffilin: false
 });
 const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   const [foodLog, setFoodLog] = useState(() => JSON.parse(localStorage.getItem("foodLog")) || []);
@@ -70,7 +69,8 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
 
   // ▶ latest weight (lbs)
-  const latestWeight = weightLog.length > 0 ? weightLog[weightLog.length - 1].weight : null;
+  const fallbackWeight = isMale ? 150 : 125;
+const latestWeight = weightLog.length > 0 ? weightLog[weightLog.length - 1].weight : fallbackWeight;
 
   // ▶ true BMR via Mifflin–St Jeor
   const bmr = latestWeight
@@ -82,8 +82,8 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
       )
     : null;
 
-  // ▶ unified threshold: BMR or fallback 1600
-  const calorieThreshold = bmr || 1600;
+  // ▶ unified threshold: BMR or fallback 1350
+  const calorieThreshold = bmr || 1350;
 
   const [customFood, setCustomFood] = useState({ name: "", cal: "", prot: "", fat: "", carbs: "", fiber: "" });
   const [customWorkout, setCustomWorkout] = useState({});
@@ -120,15 +120,8 @@ const foodOptions = [
   { name: "Brazil nut", cal: 33, prot: 0.75, fat: 3.4, carbs: 0.6, fiber: 0.2 },
   { name: "Bread (sourdough rye slice 56g)", cal: 145, prot: 4.5, fat: 1.0, carbs: 27, fiber: 3.3 },
   { name: "Butter (1 tsp)", cal: 35, prot: 0, fat: 4, carbs: 0, fiber: 0 },
-  { name: "Carrot (50g)", cal: 21, prot: 0.5, fat: 0.1, carbs: 5, fiber: 1.4 },
-  { name: "Carrot (100g)", cal: 41, prot: 0.9, fat: 0.2, carbs: 10, fiber: 2.8 },
-  { name: "Carrot (150g)", cal: 62, prot: 1.4, fat: 0.3, carbs: 15, fiber: 4.2 },
+  { name: "Carrot", cal: 25, prot: 0.5, fat: 0.1, carbs: 6, fiber: 1.7 },
   { name: "Carrots Peas and Corn (frozen, 100g)", cal: 63, prot: 3, fat: 1.1, carbs: 10, fiber: 4 },
-  { name: "Cheese (Parmesan 10g)", cal: 43, prot: 3.8, fat: 2.9, carbs: 0.4, fiber: 0 },
-  { name: "Cheese (Parmesan 20g)", cal: 86, prot: 7.6, fat: 5.8, carbs: 0.8, fiber: 0 },
-  { name: "Cheese (Parmesan 25g)", cal: 108, prot: 9.5, fat: 7.3, carbs: 1, fiber: 0 },
-  { name: "Cheese (Parmesan 30g)", cal: 129, prot: 11.4, fat: 8.7, carbs: 1.2, fiber: 0 },
-  { name: "Cheese (Parmesan 50g)", cal: 216, prot: 19, fat: 14.5, carbs: 2, fiber: 0 },
   { name: "Chia pudding (2 tbsp chia + 3/4 cup almond milk)", cal: 206, prot: 5, fat: 9, carbs: 12, fiber: 10 },
   { name: "Chia seeds (1 tbsp)", cal: 58, prot: 2, fat: 3.7, carbs: 5.1, fiber: 4.1 },
   { name: "Chicken breast (50g)", cal: 82, prot: 15, fat: 1.8, carbs: 0, fiber: 0 },
@@ -260,19 +253,19 @@ useEffect(() => {
   // 🛠️ Whenever mode changes, override the home-page goals
   useEffect(() => {
     if (mode === "Cut") {
-      setProteinGoal(140);
+      setProteinGoal(113);
       setFatGoal(50);
-      setCarbGoal(120);
+      setCarbGoal(100);
       setDeficitGoal(500);
     } else if (mode === "Maintenance") {
-      setProteinGoal(140);
-      setFatGoal(55);
-      setCarbGoal(160);
+      setProteinGoal(100);
+      setFatGoal(56);
+      setCarbGoal(125);
       setDeficitGoal(0);
     } else { // Bulk
-      setProteinGoal(150);
-      setFatGoal(60);
-      setCarbGoal(200);
+      setProteinGoal(113);
+      setFatGoal(63);
+      setCarbGoal(175);
       setDeficitGoal(-100);
     }
   }, [mode]);
@@ -291,7 +284,7 @@ useEffect(() => {
   setSteps(0);
   setFoodLog([]);
   setWorkoutLog({});
-  setChecklist({ supplements: false, sunlight: false, concentrace: false, teffilin: false});
+  setChecklist({ supplements: false, sunlight: false, concentrace: false});
 
   // Optional: clear localStorage for those too
   localStorage.removeItem("calories");
@@ -1534,7 +1527,7 @@ marginBottom:    "20px"
 </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-  {["concentrace", "teffilin", "sunlight", "supplements"].map((key) => (
+  {["concentrace", "sunlight", "supplements"].map((key) => (
     <label key={key} style={{ fontSize: "16px" }}>
       <input
         type="checkbox"
@@ -1546,8 +1539,6 @@ marginBottom:    "20px"
       />
       {key === "concentrace"
         ? "Concentrace 💧"
-        : key === "teffilin"
-        ? "Tefillin ✡️"
         : key === "sunlight"
         ? "Sunlight 🌞"
         : key === "supplements"
