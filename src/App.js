@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -32,7 +28,7 @@ function App() {
     if (!isNaN(saved)) return saved;
     return calorieThreshold;
   });
-  const [proteinGoal, setProteinGoal] = useState(() => parseFloat(localStorage.getItem("proteinGoal")) || 120);
+  const [proteinGoal, setProteinGoal] = useState(() => parseFloat(localStorage.getItem("proteinGoal")) || 140);
 const [fat, setFat] = useState(() => parseFloat(localStorage.getItem("fat")) || 0);
 const [carbs, setCarbs] = useState(() => parseFloat(localStorage.getItem("carbs")) || 0);
 const [fiber, setFiber] = useState(() => parseFloat(localStorage.getItem("fiber")) || 0);
@@ -55,6 +51,7 @@ const waterGoal = 3; // bottles of 27oz (~2.5L)
   supplements: false,
   sunlight: false,
   concentrace: false,
+  teffilin: false
 });
 const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   const [foodLog, setFoodLog] = useState(() => JSON.parse(localStorage.getItem("foodLog")) || []);
@@ -69,8 +66,7 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
 
   // ▶ latest weight (lbs)
-  const fallbackWeight = isMale ? 150 : 125;
-const latestWeight = weightLog.length > 0 ? weightLog[weightLog.length - 1].weight : fallbackWeight;
+  const latestWeight = weightLog.length > 0 ? weightLog[weightLog.length - 1].weight : null;
 
   // ▶ true BMR via Mifflin–St Jeor
   const bmr = latestWeight
@@ -82,8 +78,8 @@ const latestWeight = weightLog.length > 0 ? weightLog[weightLog.length - 1].weig
       )
     : null;
 
-  // ▶ unified threshold: BMR or fallback 1350
-  const calorieThreshold = bmr || 1350;
+  // ▶ unified threshold: BMR or fallback 1600
+  const calorieThreshold = bmr || 1600;
 
   const [customFood, setCustomFood] = useState({ name: "", cal: "", prot: "", fat: "", carbs: "", fiber: "" });
   const [customWorkout, setCustomWorkout] = useState({});
@@ -253,19 +249,19 @@ useEffect(() => {
   // 🛠️ Whenever mode changes, override the home-page goals
   useEffect(() => {
     if (mode === "Cut") {
-      setProteinGoal(113);
+      setProteinGoal(110);
       setFatGoal(50);
       setCarbGoal(100);
       setDeficitGoal(500);
     } else if (mode === "Maintenance") {
-      setProteinGoal(100);
-      setFatGoal(56);
-      setCarbGoal(125);
+      setProteinGoal(140);
+      setFatGoal(55);
+      setCarbGoal(130);
       setDeficitGoal(0);
     } else { // Bulk
-      setProteinGoal(113);
-      setFatGoal(63);
-      setCarbGoal(175);
+      setProteinGoal(150);
+      setFatGoal(60);
+      setCarbGoal(165);
       setDeficitGoal(-100);
     }
   }, [mode]);
@@ -284,7 +280,7 @@ useEffect(() => {
   setSteps(0);
   setFoodLog([]);
   setWorkoutLog({});
-  setChecklist({ supplements: false, sunlight: false, concentrace: false});
+  setChecklist({ supplements: false, sunlight: false, concentrace: false, teffilin: false});
 
   // Optional: clear localStorage for those too
   localStorage.removeItem("calories");
@@ -1527,7 +1523,7 @@ marginBottom:    "20px"
 </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-  {["concentrace", "sunlight", "supplements"].map((key) => (
+  {["concentrace", "teffilin", "sunlight", "supplements"].map((key) => (
     <label key={key} style={{ fontSize: "16px" }}>
       <input
         type="checkbox"
@@ -1539,6 +1535,8 @@ marginBottom:    "20px"
       />
       {key === "concentrace"
         ? "Concentrace 💧"
+        : key === "teffilin"
+        ? "Tefillin ✡️"
         : key === "sunlight"
         ? "Sunlight 🌞"
         : key === "supplements"
