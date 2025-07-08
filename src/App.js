@@ -127,6 +127,8 @@ const foodOptions = [
   { name: "Brazil nut", cal: 33, prot: 0.75, fat: 3.4, carbs: 0.6, fiber: 0.2 },
   { name: "Bread (sourdough rye slice 56g)", cal: 145, prot: 4.5, fat: 1.0, carbs: 27, fiber: 3.3 },
   { name: "Butter (1 tsp)", cal: 35, prot: 0, fat: 4, carbs: 0, fiber: 0 },
+  { name: "Butter (½ tbsp)", cal: 51, prot: 0.05, fat: 5.8, carbs: 0, fiber: 0 },
+  { name: "Butter (1 tbsp)", cal: 102, prot: 0.1, fat: 11.5, carbs: 0, fiber: 0 },
   { name: "Carrot (50g)", cal: 21, prot: 0.5, fat: 0.1, carbs: 5, fiber: 1.4 },
   { name: "Carrot (100g)", cal: 41, prot: 0.9, fat: 0.2, carbs: 10, fiber: 2.8 },
   { name: "Carrot (150g)", cal: 62, prot: 1.4, fat: 0.3, carbs: 15, fiber: 4.2 },
