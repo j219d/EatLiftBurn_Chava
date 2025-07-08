@@ -109,6 +109,10 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
 };
   
 const foodOptions = [
+  { name: "Almond Milk (1/4 cup)", cal: 23, prot: 0.9, fat: 1.9, carbs: 0.5, fiber: 0 },
+  { name: "Almond Milk (1/2 cup)", cal: 46, prot: 1.8, fat: 3.8, carbs: 1.0, fiber: 0 },
+  { name: "Almond Milk (3/4 cup)", cal: 68, prot: 2.7, fat: 5.8, carbs: 1.4, fiber: 0 },
+  { name: "Almond Milk (1 cup)",   cal: 91, prot: 3.6, fat: 7.7, carbs: 1.9, fiber: 0 },
   { name: "Apple", cal: 95, prot: 1, fat: 0.3, carbs: 25, fiber: 4.4 },
   { name: "Avocado (half)", cal: 120, prot: 1.5, fat: 10, carbs: 6, fiber: 5 },
   { name: "Avocado (whole)", cal: 240, prot: 3, fat: 20, carbs: 12, fiber: 10 },
