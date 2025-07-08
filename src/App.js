@@ -156,6 +156,7 @@ const foodOptions = [
   { name: "Egg white", cal: 15, prot: 3, fat: 0, carbs: 0.2, fiber: 0 },
   { name: "Eggs (2) + butter", cal: 175, prot: 12, fat: 13, carbs: 0.6, fiber: 0 },
   { name: "Eggs (2), Egg white (1) + butter", cal: 190, prot: 15, fat: 13, carbs: 0.8, fiber: 0 },
+  { name: "Fig (1 medium)", cal: 37, prot: 0.4, fat: 0.2, carbs: 10, fiber: 1.4 },
   { name: "Flax seeds (1 tbsp)", cal: 55, prot: 2, fat: 4.3, carbs: 3, fiber: 2.8 },
   { name: "Green onions", cal: 5, prot: 0, fat: 0, carbs: 1, fiber: 0.3 },
   { name: "Green beans (100g, roasted, no oil)", cal: 38, prot: 2.2, fat: 0.4, carbs: 8, fiber: 3.6 },
