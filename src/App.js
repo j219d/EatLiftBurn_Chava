@@ -895,8 +895,8 @@ return;
 }
 // existing Run handling
 if (type === "Run") {
-  const cal = Math.round(input * 50);
-  const runSteps = Math.round(input * 1200);
+  const cal = Math.round(input * 60);
+  const runSteps = Math.round(input * 1100);
 
   setSteps(prev => prev + runSteps);
 
@@ -1552,7 +1552,7 @@ marginBottom:    "20px"
 </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-  {["concentrace", "sunlight", "supplements"].map((key) => (
+  {["concentrace", "teffilin", "sunlight", "supplements"].map((key) => (
     <label key={key} style={{ fontSize: "16px" }}>
       <input
         type="checkbox"
@@ -1564,6 +1564,8 @@ marginBottom:    "20px"
       />
       {key === "concentrace"
         ? "Concentrace 💧"
+        : key === "teffilin"
+        ? "Tefillin ✡️"
         : key === "sunlight"
         ? "Sunlight 🌞"
         : key === "supplements"
@@ -1630,3 +1632,5 @@ marginBottom:    "20px"
 }
 
 export default App;
+
+
