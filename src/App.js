@@ -103,7 +103,7 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   "Biceps": 0.2,
   "Triceps": 0.3,
   "Push-ups": 0.3,
-  "Plank": 0.04,
+  "Plank": ,
   "Run": "run",
   "Bike": "bike"
 };
@@ -243,7 +243,7 @@ const foodOptions = [
     return sum + value.cal;
   }
   if (type === "Swim") return sum + Math.round(value * 7);
-  if (type === "Plank") return sum + Math.round(value * 0.04);
+  if (type === "Plank") return sum + Math.round(value * );
   if (workouts[type]) return sum + Math.round(value * workouts[type]);
   return sum;
 }, 0)
@@ -324,7 +324,7 @@ useEffect(() => {
 const logWorkout = (type, reps) => {
   let burn;
   if (type === "Plank") {
-    burn = Math.round(reps * 0.04); // ~2.4 cal/min
+    burn = Math.round(reps * ); // ~2.4 cal/min
   } else {
     burn = Math.round(workouts[type] * reps);
   }
@@ -354,7 +354,7 @@ const logWorkout = (type, reps) => {
   type === "Run"
     ? Math.round(reps * 65)
     : type === "Steps"
-    ? Math.round(reps * 0.04)
+    ? Math.round(reps * 0.035)
     : type === "Plank"
     ? Math.round(reps * 0.04)
     : Math.round(reps * workouts[type]);
