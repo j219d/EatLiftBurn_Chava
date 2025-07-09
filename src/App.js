@@ -901,14 +901,20 @@ if (type === "Run") {
 
   setSteps(prev => prev + runSteps);
 
-  setWorkoutLog(prev => ({
+setWorkoutLog(prev => {
+  const prevReps = prev[type]?.reps || 0;
+  const prevCal = prev[type]?.cal || 0;
+  const prevSteps = prev[type]?.stepsAdded || 0;
+
+  return {
     ...prev,
     [type]: {
-      reps: input,
-      cal,
-      stepsAdded: runSteps
+      reps: prevReps + input,
+      cal: prevCal + cal,
+      stepsAdded: prevSteps + runSteps
     }
-  }));
+  };
+});
 
   setCustomWorkout({ ...customWorkout, [type]: "" });
   return; // Exit early
