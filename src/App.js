@@ -201,7 +201,7 @@ const foodOptions = [
   { name: "Protein bar (quest cookie dough)", cal: 190, prot: 21, fat: 9, carbs: 21, fiber: 12 },
   { name: "Protein bar (quest mini cookie dough)", cal: 80, prot: 8, fat: 3.5, carbs: 9, fiber: 3 },
   { name: "Protein chips (quest)", cal: 140, prot: 20, fat: 4.5, carbs: 4, fiber: 1 },
-  { name: "Protein Ice Cream (Peanut Butter Banana)", cal: 498, prot: 55.3, fat: 9.2, carbs: 51.4, fiber: 4.1 },
+  { name: "Protein Ice Cream (PBfit Banana 1 vanilla)", cal: 409, prot: 44, fat: 3, carbs: 56, fiber: 5 },
   { name: "Protein pancakes (kodiak ½ cup)", cal: 220, prot: 14, fat: 2, carbs: 30, fiber: 3 },
   { name: "Protein scoop (1 Promix Chocolate)", cal: 80, prot: 15.5, fat: 0.75, carbs: 4.5 },
   { name: "Protein scoop (2 Promix Chocolate)", cal: 160, prot: 31, fat: 1.5, carbs: 9 },
