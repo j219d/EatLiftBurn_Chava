@@ -381,7 +381,6 @@ if (type === "Run") {
   });
 };
 
-
   const addFood = (food) => {
   const completeFood = {
     name: food.name || "Unnamed",
