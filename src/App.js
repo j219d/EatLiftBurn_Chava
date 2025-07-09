@@ -103,7 +103,7 @@ const allChecklistItemsComplete = Object.values(checklist).every(Boolean);
   "Biceps": 0.2,
   "Triceps": 0.3,
   "Push-ups": 0.3,
-  "Plank": ,
+  "Plank": 0.04,
   "Run": "run",
   "Bike": "bike"
 };
@@ -142,9 +142,9 @@ const foodOptions = [
   { name: "Chia seeds (1 tbsp)", cal: 58, prot: 2, fat: 3.7, carbs: 5.1, fiber: 4.1 },
   { name: "Chicken breast (50g)", cal: 82, prot: 15, fat: 1.8, carbs: 0, fiber: 0 },
   { name: "Chicken breast (100g)", cal: 165, prot: 31, fat: 3.6, carbs: 0, fiber: 0 },
-  { name: "Chicken breast (130g)", cal: 215, prot: 40.3, fat: 4.7, carbs: 0, fiber: 0 },
+  { name: "Chicken breast (130g)", cal: 215, prot: 40, fat: 4.7, carbs: 0, fiber: 0 },
   { name: "Chicken breast (150g)", cal: 248, prot: 46, fat: 5.4, carbs: 0, fiber: 0 },
-  { name: "Chicken breast (160g)", cal: 264, prot: 49.6, fat: 5.8, carbs: 0, fiber: 0 },
+  { name: "Chicken breast (160g)", cal: 264, prot: 50, fat: 5.8, carbs: 0, fiber: 0 },
   { name: "Chicken breast (200g)", cal: 330, prot: 62, fat: 7.2, carbs: 0, fiber: 0 },
   { name: "Corn (100g)", cal: 85, prot: 2.2, fat: 1.3, carbs: 15.3, fiber: 1.5 },
   { name: "Cottage cheese 5% (50g)", cal: 48, prot: 5.5, fat: 2.5, carbs: 0.8, fiber: 0 },
@@ -243,7 +243,7 @@ const foodOptions = [
     return sum + value.cal;
   }
   if (type === "Swim") return sum + Math.round(value * 7);
-  if (type === "Plank") return sum + Math.round(value * );
+  if (type === "Plank") return sum + Math.round(value * 0.04);
   if (workouts[type]) return sum + Math.round(value * workouts[type]);
   return sum;
 }, 0)
@@ -324,7 +324,7 @@ useEffect(() => {
 const logWorkout = (type, reps) => {
   let burn;
   if (type === "Plank") {
-    burn = Math.round(reps * ); // ~2.4 cal/min
+    burn = Math.round(reps * 0.04); // ~2.4 cal/min
   } else {
     burn = Math.round(workouts[type] * reps);
   }
@@ -340,7 +340,7 @@ const logWorkout = (type, reps) => {
 }
 
   if (type === "Run") {
-    const runSteps = Math.round(reps * 1200);
+    const runSteps = Math.round(reps * 800);
     setSteps(prev => prev + runSteps);
   }
 };
@@ -354,7 +354,7 @@ const logWorkout = (type, reps) => {
   type === "Run"
     ? Math.round(reps * 65)
     : type === "Steps"
-    ? Math.round(reps * 0.035)
+    ? Math.round(reps * 0.04)
     : type === "Plank"
     ? Math.round(reps * 0.04)
     : Math.round(reps * workouts[type]);
@@ -380,6 +380,7 @@ if (type === "Run") {
     return updated;
   });
 };
+
 
   const addFood = (food) => {
   const completeFood = {
@@ -895,25 +896,19 @@ return;
 }
 // existing Run handling
 if (type === "Run") {
-  const cal = Math.round(input * 60);
-  const runSteps = Math.round(input * 1100);
+  const cal = Math.round(input * 70);
+  const runSteps = Math.round(input * 800);
 
   setSteps(prev => prev + runSteps);
 
-setWorkoutLog(prev => {
-  const prevReps = prev[type]?.reps || 0;
-  const prevCal = prev[type]?.cal || 0;
-  const prevSteps = prev[type]?.stepsAdded || 0;
-
-  return {
+  setWorkoutLog(prev => ({
     ...prev,
     [type]: {
-      reps: prevReps + input,
-      cal: prevCal + cal,
-      stepsAdded: prevSteps + runSteps
+      reps: input,
+      cal,
+      stepsAdded: runSteps
     }
-  };
-});
+  }));
 
   setCustomWorkout({ ...customWorkout, [type]: "" });
   return; // Exit early
@@ -1552,7 +1547,7 @@ marginBottom:    "20px"
 </h3>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-  {["concentrace", "teffilin", "sunlight", "supplements"].map((key) => (
+  {["concentrace", "sunlight", "supplements"].map((key) => (
     <label key={key} style={{ fontSize: "16px" }}>
       <input
         type="checkbox"
@@ -1564,8 +1559,6 @@ marginBottom:    "20px"
       />
       {key === "concentrace"
         ? "Concentrace 💧"
-        : key === "teffilin"
-        ? "Tefillin ✡️"
         : key === "sunlight"
         ? "Sunlight 🌞"
         : key === "supplements"
@@ -1632,5 +1625,3 @@ marginBottom:    "20px"
 }
 
 export default App;
-
-
