@@ -896,23 +896,25 @@ return;
 }
 // existing Run handling
 if (type === "Run") {
-  const cal = Math.round(input * 70);
-  const runSteps = Math.round(input * 800);
+  const cal = Math.round(input * 60);
+  const runSteps = Math.round(input * 1100);
 
   setSteps(prev => prev + runSteps);
 
-  setWorkoutLog(prev => ({
+setWorkoutLog(prev => {
+  const prevReps = prev[type]?.reps || 0;
+  const prevCal = prev[type]?.cal || 0;
+  const prevSteps = prev[type]?.stepsAdded || 0;
+
+  return {
     ...prev,
     [type]: {
-      reps: input,
-      cal,
-      stepsAdded: runSteps
+      reps: prevReps + input,
+      cal: prevCal + cal,
+      stepsAdded: prevSteps + runSteps
     }
-  }));
-
-  setCustomWorkout({ ...customWorkout, [type]: "" });
-  return; // Exit early
-}
+  };
+});
 
     // fallback for other reps-based workouts
 setWorkoutLog(prev => ({
