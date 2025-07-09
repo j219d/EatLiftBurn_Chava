@@ -354,7 +354,7 @@ const logWorkout = (type, reps) => {
   type === "Run"
     ? Math.round(reps * 65)
     : type === "Steps"
-    ? Math.round(reps * 0.04)
+    ? Math.round(reps * 0.035)
     : type === "Plank"
     ? Math.round(reps * 0.04)
     : Math.round(reps * workouts[type]);
