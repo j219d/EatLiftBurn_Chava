@@ -282,7 +282,7 @@ useEffect(() => {
       setCarbGoal(115);
       setDeficitGoal(0);
     } else { // Bulk
-      setProteinGoal(150);
+      setProteinGoal(113);
       setFatGoal(63);
       setCarbGoal(175);
       setDeficitGoal(-100);
