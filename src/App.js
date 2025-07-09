@@ -237,7 +237,6 @@ const foodOptions = [
   { name: "Yogurt 0%", cal: 117, prot: 20, fat: 0.3, carbs: 6, fiber: 0 }
 ];
 
-
   const totalBurn = Object.entries(workoutLog).reduce((sum, [type, value]) => {
   if (typeof value === "object" && value !== null && typeof value.cal === "number") {
     return sum + value.cal;
@@ -896,25 +895,23 @@ return;
 }
 // existing Run handling
 if (type === "Run") {
-  const cal = Math.round(input * 60);
-  const runSteps = Math.round(input * 1100);
+  const cal = Math.round(input * 70);
+  const runSteps = Math.round(input * 800);
 
   setSteps(prev => prev + runSteps);
 
-setWorkoutLog(prev => {
-  const prevReps = prev[type]?.reps || 0;
-  const prevCal = prev[type]?.cal || 0;
-  const prevSteps = prev[type]?.stepsAdded || 0;
-
-  return {
+  setWorkoutLog(prev => ({
     ...prev,
     [type]: {
-      reps: prevReps + input,
-      cal: prevCal + cal,
-      stepsAdded: prevSteps + runSteps
+      reps: input,
+      cal,
+      stepsAdded: runSteps
     }
-  };
-});
+  }));
+
+  setCustomWorkout({ ...customWorkout, [type]: "" });
+  return; // Exit early
+}
 
     // fallback for other reps-based workouts
 setWorkoutLog(prev => ({
