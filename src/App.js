@@ -896,8 +896,8 @@ return;
 }
 // existing Run handling
 if (type === "Run") {
-  const cal = Math.round(input * 70);
-  const runSteps = Math.round(input * 800);
+  const cal = Math.round(input * 50);
+  const runSteps = Math.round(input * 1200);
 
   setSteps(prev => prev + runSteps);
 
